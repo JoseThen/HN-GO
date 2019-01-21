@@ -8,16 +8,20 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"text/tabwriter"
 	"time"
 )
 
 // Story hn Stories
 type Story struct {
-	Title string `json: "title"`
-	URL   string `json: "url"`
+	Title string `json:"title"`
+	URL   string `json:"url"`
 }
 
 func main() {
+	w := new(tabwriter.Writer)
+	// minwidth, tabwidth, padding, padchar, flags
+	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
 	// SubCommands
 	topCommand := flag.NewFlagSet("top", flag.ExitOnError)
 	newCommand := flag.NewFlagSet("new", flag.ExitOnError)
@@ -53,17 +57,30 @@ func main() {
 	// Check which subcommand was Parsed using the FlagSet.Parsed() function. Handle each case accordingly.
 	// FlagSet.Parse() will evaluate to false if no flags were parsed (i.e. the user did not provide any flags)
 	if topCommand.Parsed() {
-		var topIds = getTop(topListNumber)
+		defer w.Flush()
+		fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
+		fmt.Fprintf(w, "\n %s\t%s\t", "----", "----")
+		var topIds = getIds(topListNumber, "top")
 		for _, id := range topIds {
 			var results = getData(id)
-			fmt.Println(results.Title)
-			fmt.Println(results.URL)
+			fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
+		}
+	}
+
+	if newCommand.Parsed() {
+		defer w.Flush()
+		fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
+		fmt.Fprintf(w, "\n %s\t%s\t", "----", "----")
+		var newIds = getIds(topListNumber, "new")
+		for _, id := range newIds {
+			var results = getData(id)
+			fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
 		}
 	}
 }
 
-func getTop(amount int) []int {
-	url := "https://hacker-news.firebaseio.com/v0/topstories.json"
+func getIds(amount int, category string) []int {
+	url := fmt.Sprintf("https://hacker-news.firebaseio.com/v0/%sstories.json", category)
 	var topArray []int
 
 	client := http.Client{
@@ -97,7 +114,6 @@ func getTop(amount int) []int {
 
 func getData(id int) Story {
 	url := fmt.Sprintf("https://hacker-news.firebaseio.com/v0/item/%d.json", id)
-	// url := "https://hacker-news.firebaseio.com/v0/item/18942572.json"
 	var story Story
 	// fmt.Println(url)
 
