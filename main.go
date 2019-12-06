@@ -1,12 +1,11 @@
 package main
 
 import (
+	get "./util"
 	"flag"
 	"fmt"
 	"os"
 	"text/tabwriter"
-
-	get "./util"
 )
 
 // Story hn Stories
