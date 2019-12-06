@@ -1,6 +1,6 @@
 # HackerNews Go
 
-[![Build Status](https://travis-ci.org/JoseThen/HN-GO.svg?branch=master)](https://travis-ci.org/JoseThen/HN-GO)
+[![Build Status](https://github.com/JoseThen/HN-GO/workflows/Test%20Master/badge.svg)](https://github.com/JoseThen/HN-GO/blob/master/.github/workflows/test_master.yaml)
 
 A HackerNews client writtent in Go
 
