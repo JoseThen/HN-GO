@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	get "github.com/JoseThen/HN-GO/util"
+	get "github.com/JoseThen/hn/util"
 )
 
 const testNum = 81
