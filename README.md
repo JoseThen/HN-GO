@@ -1,8 +1,8 @@
 # HackerNews Go
 
-[![Build Status](https://github.com/JoseThen/HN-GO/workflows/Build%20Master/badge.svg)](https://github.com/JoseThen/HN-GO/blob/master/.github/workflows/build_master.yaml)
+[![Build Status](https://github.com/JoseThen/hn/workflows/Build%20Master/badge.svg)](https://github.com/JoseThen/hn/blob/master/.github/workflows/build_master.yaml)
 
-[![Test Status](https://github.com/JoseThen/HN-GO/workflows/Test%20Master/badge.svg)](https://github.com/JoseThen/HN-GO/blob/master/.github/workflows/test_master.yaml)
+[![Test Status](https://github.com/JoseThen/hn/workflows/Test%20Master/badge.svg)](https://github.com/JoseThen/hn/blob/master/.github/workflows/test_master.yaml)
 
 A HackerNews client writtent in Go
 
