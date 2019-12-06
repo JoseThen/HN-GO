@@ -1,15 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
 	"os"
 	"text/tabwriter"
-	"time"
+
+	get "./util"
 )
 
 // Story hn Stories
@@ -60,9 +57,9 @@ func main() {
 		defer w.Flush()
 		fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
 		fmt.Fprintf(w, "\n %s\t%s\t", "----", "----")
-		var topIds = getIds(topListNumber, "top")
+		var topIds = get.Ids(topListNumber, "top")
 		for _, id := range topIds {
-			var results = getData(id)
+			var results = get.Data(id)
 			fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
 		}
 	}
@@ -71,77 +68,10 @@ func main() {
 		defer w.Flush()
 		fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
 		fmt.Fprintf(w, "\n %s\t%s\t", "----", "----")
-		var newIds = getIds(topListNumber, "new")
+		var newIds = get.Ids(topListNumber, "new")
 		for _, id := range newIds {
-			var results = getData(id)
+			var results = get.Data(id)
 			fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
 		}
 	}
-}
-
-func getIds(amount int, category string) []int {
-	url := fmt.Sprintf("https://hacker-news.firebaseio.com/v0/%sstories.json", category)
-	var topArray []int
-
-	client := http.Client{
-		Timeout: time.Second * 10, //Max of 2 secs
-	}
-
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res, getErr := client.Do(req)
-	if getErr != nil {
-		log.Fatal(getErr)
-	}
-
-	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
-
-	jsonErr := json.Unmarshal([]byte(body), &topArray)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
-	}
-
-	defer res.Body.Close()
-	return topArray[:amount]
-
-}
-
-func getData(id int) Story {
-	url := fmt.Sprintf("https://hacker-news.firebaseio.com/v0/item/%d.json", id)
-	var story Story
-	// fmt.Println(url)
-
-	client := http.Client{
-		Timeout: time.Second * 2, //Max of 2 secs
-	}
-
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res, getErr := client.Do(req)
-	if getErr != nil {
-		log.Fatal(getErr)
-	}
-
-	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
-
-	jsonErr := json.Unmarshal([]byte(body), &story)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
-	}
-
-	// defer res.Body.Close()
-	return story
-
 }
