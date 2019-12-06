@@ -3,13 +3,15 @@ package main
 import (
 	"reflect"
 	"testing"
+
+	get "../util"
 )
 
 const testNum = 81
 const testType = "string"
 
 func TestIdGetter(t *testing.T) {
-	got := getIds(testNum, "top")
+	got := get.Ids(testNum, "top")
 
 	if len(got) != testNum {
 		t.Errorf("got '%d' want '%d'", len(got), testNum)
@@ -17,7 +19,7 @@ func TestIdGetter(t *testing.T) {
 }
 
 func TestDataGetter(t *testing.T) {
-	got := getData(1)
+	got := get.Data(1)
 	theType := reflect.TypeOf(got.Title)
 
 	if theType != reflect.TypeOf(testType) {
