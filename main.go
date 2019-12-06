@@ -1,9 +1,9 @@
 package main
 
 import (
-	get "./util"
 	"flag"
 	"fmt"
+	get "github.com/JoseThen/HN-GO/util"
 	"os"
 	"text/tabwriter"
 )
