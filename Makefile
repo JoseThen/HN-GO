@@ -3,7 +3,7 @@
 VERSION ?= 1.0.0
 
 test:
-	go test ./tests -v 
+	go test ./tests -v
 
 build:
 	go build -o release/hn main.go
