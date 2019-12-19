@@ -16,11 +16,11 @@ limitations under the License.
 package cmd
 
 import (
-	"flag"
 	"fmt"
-	get "github.com/JoseThen/hn/util"
 	"os"
 	"text/tabwriter"
+
+	get "github.com/JoseThen/hn/util"
 
 	"github.com/spf13/cobra"
 )
@@ -48,24 +48,22 @@ var getCmd = &cobra.Command{
 		top, _ := cmd.Flags().GetBool("top")
 		new, _ := cmd.Flags().GetBool("new")
 
-		flag.Parse()
-
 		switch {
-		case top:
-			defer w.Flush()
-			fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
-			fmt.Fprintf(w, "\n %s\t%s\t", "-----", "---")
-			var topIds = get.Ids(count, "top")
-			for _, id := range topIds {
-				var results = get.Data(id)
-				fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
-			}
 		case new:
 			defer w.Flush()
 			fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
 			fmt.Fprintf(w, "\n %s\t%s\t", "-----", "---")
 			var newIds = get.Ids(count, "new")
 			for _, id := range newIds {
+				var results = get.Data(id)
+				fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
+			}
+		case top:
+			defer w.Flush()
+			fmt.Fprintf(w, "\n %s\t%s\t", "Title", "Url")
+			fmt.Fprintf(w, "\n %s\t%s\t", "-----", "---")
+			var topIds = get.Ids(count, "top")
+			for _, id := range topIds {
 				var results = get.Data(id)
 				fmt.Fprintf(w, "\n %s\t%s\t", results.Title, results.URL)
 			}
