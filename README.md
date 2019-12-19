@@ -13,20 +13,23 @@ A HackerNews client writtent in Go
 To get the top stories
 
 ```
-hn -top
+hnctl get --count 4
 ```
 
 To get most recent (new) stories
 
 ```
-hn -new
+hnctl get --new
 ```
 
--   The default number of stories for both subcommands is 10. You can change that by using the `-count` flag
--   If you do not build the executable then you can simply do `go run main.go -count 30`
--   Note that `-top` will be set by default if no flag is set
+-   The default number of stories for both subcommands is 10. You
+can change that by using the `--count` flag
+-   If you do not build the executable then you can
+simply do `go run main.go get--count 30`
+-   Note that `--top` will be set by default if no flag is set
 
 ## Output
 
-When running a command you will get 2 columns for Title and URL in your terminal:
+When running a command you will get 2 columns for Title and URL
+in your terminal:
 ![Image of HN GO output](images/output.png)
