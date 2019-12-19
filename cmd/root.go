@@ -1,24 +1,35 @@
+/*
+Copyright © 2019 Jose Then
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package cmd
 
 import (
 	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
+	"os"
 )
 
+// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "hn",
-	Short: "CLI to get HAcker News Posts and Information",
-	Long: `Hn is a cli utility to get information on the current posts
-in Hacker News. It takes advantage of the Hacker News API.`,
+	Use:   "hnctl",
+	Short: "hnctl is a cli client for Hacker News.",
+	Long:  `hnctl is a command line client to browse posts on Hacker News.`,
 }
 
-// // Execute executes the root command.
-// func Execute() error {
-// 	return rootCmd.Execute()
-// }
-
+// Execute adds all child commands to the root command and sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -27,5 +38,13 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
+	// Here you will define your flags and configuration settings.
+	// Cobra supports persistent flags, which, if defined here,
+	// will be global for your application.
+
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.hnctl.yaml)")
+
+	// Cobra also supports local flags, which will only run
+	// when this action is called directly.
+	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
