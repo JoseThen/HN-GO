@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	get "github.com/JoseThen/hn/util"
+	get "github.com/JoseThen/hnctl/util"
 )
 
 const testNum = 81

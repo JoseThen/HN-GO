@@ -20,7 +20,7 @@ import (
 	"os"
 	"text/tabwriter"
 
-	get "github.com/JoseThen/hn/util"
+	get "github.com/JoseThen/hnctl/util"
 
 	"github.com/spf13/cobra"
 )
